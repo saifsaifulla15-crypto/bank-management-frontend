@@ -116,14 +116,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderPagination(pageData) {
-        const { totalPages, number: current, totalElements } = pageData;
+        const { totalPages, number: CURRENT_TYPE, totalElements } = pageData;
         
         let html = `
-            <button class="page-btn" ${current === 0 ? 'disabled' : ''} onclick="changePage(${current - 1})">
+            <button class="page-btn" ${CURRENT_TYPE === 0 ? 'disabled' : ''} onclick="changePage(${CURRENT_TYPE - 1})">
                 <i class="fas fa-chevron-left"></i> Prev
             </button>
-            <span class="page-info">Page ${current + 1} of ${totalPages} (${totalElements} total)</span>
-            <button class="page-btn" ${current >= totalPages - 1 ? 'disabled' : ''} onclick="changePage(${current + 1})">
+            <span class="page-info">Page ${CURRENT_TYPE + 1} of ${totalPages} (${totalElements} total)</span>
+            <button class="page-btn" ${CURRENT_TYPE >= totalPages - 1 ? 'disabled' : ''} onclick="changePage(${CURRENT_TYPE + 1})">
                 Next <i class="fas fa-chevron-right"></i>
             </button>
         `;
