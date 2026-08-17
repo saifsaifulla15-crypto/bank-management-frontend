@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Management System - Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-university" style="margin-right: 0.75rem;"></i>
+                BankAdmin
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <a href="index.html" class="nav-link active">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Banks</div>
+                    <a href="pages/banks.html" class="nav-link">
+                        <i class="fas fa-building"></i> All Banks
+                    </a>
+                    <a href="pages/create-bank.html" class="nav-link">
+                        <i class="fas fa-plus-circle"></i> Create Bank
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Accounts</div>
+                    <a href="pages/accounts.html" class="nav-link">
+                        <i class="fas fa-users"></i> All Accounts
+                    </a>
+                    <a href="pages/create-account.html" class="nav-link">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Transactions</div>
+                    <a href="pages/transactions.html" class="nav-link">
+                        <i class="fas fa-exchange-alt"></i> Menu
+                    </a>
+                    <a href="pages/deposit.html" class="nav-link">
+                        <i class="fas fa-arrow-down"></i> Deposit
+                    </a>
+                    <a href="pages/withdraw.html" class="nav-link">
+                        <i class="fas fa-arrow-up"></i> Withdraw
+                    </a>
+                    <a href="pages/transfer.html" class="nav-link">
+                        <i class="fas fa-random"></i> Transfer
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Navbar -->
+            <header class="navbar">
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div style="flex: 1;"></div>
+                <div class="user-profile">
+                    <span class="avatar">A</span>
+                    <span style="font-weight: 500; font-size: 0.95rem;">Admin User</span>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main class="content-area">
+                <div class="page-header">
+                    <h1 class="page-title">Welcome to Bank Management System</h1>
+                    <p class="page-description">Manage banks, accounts and transactions</p>
+                </div>
+
+                <!-- Dashboard Grid -->
+                <div class="dashboard-grid" id="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon primary"><i class="fas fa-building"></i></div>
+                        <div class="stat-details">
+                            <div class="stat-title">Total Banks</div>
+                            <div class="stat-value" id="stat-banks">--</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon info"><i class="fas fa-users"></i></div>
+                        <div class="stat-details">
+                            <div class="stat-title">Total Accounts</div>
+                            <div class="stat-value" id="stat-accounts">--</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon success"><i class="fas fa-wallet"></i></div>
+                        <div class="stat-details">
+                            <div class="stat-title">Total System Balance</div>
+                            <div class="stat-value" id="stat-balance">--</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-sections">
+                    <!-- Recent Accounts Table -->
+                    <div class="section-main">
+                        <div class="card">
+                            <h2 class="section-title">Recent Accounts</h2>
+                            <div class="table-responsive">
+                                <table class="table" id="recent-accounts-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Account No.</th>
+                                            <th>Holder</th>
+                                            <th>Type</th>
+                                            <th>Balance</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="5" class="text-center" style="padding: 2rem;">
+                                                <div class="loading-spinner"></div>
+                                                <div class="mt-2 text-muted">Loading accounts...</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Panel -->
+                    <div class="section-side">
+                        <div class="card">
+                            <h2 class="section-title">Quick Actions</h2>
+                            <div class="quick-actions-grid">
+                                <a href="pages/create-bank.html" class="action-btn">
+                                    <i class="fas fa-plus-circle"></i> Create Bank
+                                </a>
+                                <a href="pages/create-account.html" class="action-btn">
+                                    <i class="fas fa-user-plus"></i> Create Account
+                                </a>
+                                <a href="pages/deposit.html" class="action-btn">
+                                    <i class="fas fa-arrow-down" style="color: var(--success);"></i> Deposit Money
+                                </a>
+                                <a href="pages/withdraw.html" class="action-btn">
+                                    <i class="fas fa-arrow-up" style="color: var(--warning);"></i> Withdraw Money
+                                </a>
+                                <a href="pages/transfer.html" class="action-btn">
+                                    <i class="fas fa-random" style="color: #4f46e5;"></i> Transfer Money
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <h2 class="section-title">Account Types</h2>
+                            <div id="account-type-stats">
+                                <div class="text-center" style="padding: 1rem;">
+                                    <div class="loading-spinner"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+        // Dashboard specific JavaScript
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Fetch data concurrently
+                const [banksRes, accountsRes] = await Promise.allSettled([
+                    BankAPI.getAllBanks(),
+                    AccountAPI.getAllAccounts()
+                ]);
+
+                let totalBanks = 0;
+                let totalAccounts = 0;
+                let totalBalance = 0;
+                
+                let savings = 0;
+                let current = 0;
+                let fixed = 0;
+                let recentAccounts = [];
+
+                if (banksRes.status === 'fulfilled') {
+                    totalBanks = banksRes.value.data.length;
+                    document.getElementById('stat-banks').textContent = totalBanks;
+                } else {
+                    document.getElementById('stat-banks').textContent = 'Error';
+                }
+
+                if (accountsRes.status === 'fulfilled') {
+                    const accounts = accountsRes.value.data;
+                    totalAccounts = accounts.length;
+                    
+                    accounts.forEach(acc => {
+                        totalBalance += acc.balance || 0;
+                        if (acc.accountType === 'SAVINGS') savings++;
+                        else if (acc.accountType === 'CURRENT') current++;
+                        else if (acc.accountType === 'FIXED_DEPOSITE') fixed++;
+                    });
+                    
+                    document.getElementById('stat-accounts').textContent = totalAccounts;
+                    document.getElementById('stat-balance').textContent = formatCurrency(totalBalance);
+                    
+                    // Display latest 5 accounts
+                    recentAccounts = accounts.slice(-5).reverse();
+                } else {
+                    document.getElementById('stat-accounts').textContent = 'Error';
+                    document.getElementById('stat-balance').textContent = 'Error';
+                }
+
+                // Render Recent Accounts Table
+                const tbody = document.querySelector('#recent-accounts-table tbody');
+                if (recentAccounts.length > 0) {
+                    tbody.innerHTML = recentAccounts.map(acc => `
+                        <tr>
+                            <td style="font-family: monospace; font-weight: 600;">${acc.accountNumber}</td>
+                            <td>${acc.accountHolderName}</td>
+                            <td>
+                                <span class="badge badge-${getAccountTypeBadgeClass(acc.accountType)}">
+                                    ${acc.accountType.replace('_', ' ')}
+                                </span>
+                            </td>
+                            <td style="font-weight: 600;">${formatCurrency(acc.balance)}</td>
+                            <td>
+                                <a href="pages/account-details.html?id=${acc.accountId}" class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">View</a>
+                            </td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5">
+                                <div class="empty-state">
+                                    <i class="fas fa-folder-open"></i>
+                                    <p>No accounts found.</p>
+                                    <a href="pages/create-account.html" class="btn btn-primary mt-2">Create Account</a>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }
+                
+                // Render Account Type Stats (Simple visual bars)
+                const typeStatsContainer = document.getElementById('account-type-stats');
+                if (totalAccounts > 0) {
+                    const renderBar = (label, count, colorClass) => {
+                        const percentage = ((count / totalAccounts) * 100).toFixed(0);
+                        return `
+                            <div style="margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem; font-weight: 500;">
+                                    <span>${label}</span>
+                                    <span>${count} (${percentage}%)</span>
+                                </div>
+                                <div style="height: 8px; background-color: var(--border); border-radius: 4px; overflow: hidden;">
+                                    <div class="${colorClass}" style="height: 100%; width: ${percentage}%;"></div>
+                                </div>
+                            </div>
+                        `;
+                    };
+                    
+                    typeStatsContainer.innerHTML = `
+                        ${renderBar('Savings', savings, 'bg-primary')}
+                        ${renderBar('Current', current, 'bg-warning')}
+                        ${renderBar('Fixed Deposit', fixed, 'bg-success')}
+                    `;
+                } else {
+                    typeStatsContainer.innerHTML = '<div class="text-center text-muted">No accounts data available</div>';
+                }
+                
+            } catch (error) {
+                console.error("Dashboard error:", error);
+                showToast("Failed to load dashboard data.", "error");
+            }
+        });
+
+        // Helper for badges and progress bars
+        function getAccountTypeBadgeClass(type) {
+            if (type === 'SAVINGS') return 'primary';
+            if (type === 'CURRENT') return 'warning';
+            if (type === 'FIXED_DEPOSITE') return 'success';
+            return 'primary';
+        }
+    </script>
+    
+    <!-- Add couple of small inline styles for the type bars -->
+    <style>
+        .bg-primary { background-color: var(--primary-light); }
+        .bg-warning { background-color: var(--warning); }
+        .bg-success { background-color: var(--success); }
+    </style>
+</body>
+</html>

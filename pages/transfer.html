@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer - Bank Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/transactions.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-university" style="margin-right: 0.75rem;"></i>
+                BankAdmin
+            </div>
+            <nav class="sidebar-nav">
+                <!-- (Same sidebar) -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <a href="../index.html" class="nav-link">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Banks</div>
+                    <a href="banks.html" class="nav-link">
+                        <i class="fas fa-building"></i> All Banks
+                    </a>
+                    <a href="create-bank.html" class="nav-link">
+                        <i class="fas fa-plus-circle"></i> Create Bank
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Accounts</div>
+                    <a href="accounts.html" class="nav-link">
+                        <i class="fas fa-users"></i> All Accounts
+                    </a>
+                    <a href="create-account.html" class="nav-link">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Transactions</div>
+                    <a href="transactions.html" class="nav-link">
+                        <i class="fas fa-exchange-alt"></i> Menu
+                    </a>
+                    <a href="deposit.html" class="nav-link">
+                        <i class="fas fa-arrow-down"></i> Deposit
+                    </a>
+                    <a href="withdraw.html" class="nav-link">
+                        <i class="fas fa-arrow-up"></i> Withdraw
+                    </a>
+                    <a href="transfer.html" class="nav-link active">
+                        <i class="fas fa-random"></i> Transfer
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Navbar -->
+            <header class="navbar">
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div style="flex: 1;"></div>
+                <div class="user-profile">
+                    <span class="avatar">A</span>
+                    <span style="font-weight: 500; font-size: 0.95rem;">Admin User</span>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main class="content-area">
+                <div class="page-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <h1 class="page-title">Transfer Funds</h1>
+                        <p class="page-description">Move money between accounts</p>
+                    </div>
+                    <a href="transactions.html" class="btn btn-outline">
+                        <i class="fas fa-arrow-left"></i> Menu
+                    </a>
+                </div>
+
+                <div class="tx-form-container" style="max-width: 600px;">
+                    <div class="tx-header-icon" style="color: #3b82f6;">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+
+                    <form id="transfer-form" novalidate>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label class="form-label" for="fromAccountId">From Account ID *</label>
+                                <input type="number" id="fromAccountId" name="fromAccountId" class="form-control" required placeholder="Source Account ID">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="fromAccountNumber">From Account Number *</label>
+                                <input type="text" id="fromAccountNumber" name="fromAccountNumber" class="form-control" required placeholder="e.g. SAV-1001">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="toAccountId">To Account ID *</label>
+                                <input type="number" id="toAccountId" name="toAccountId" class="form-control" required placeholder="Dest Account ID">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="toAccountNumber">To Account Number *</label>
+                                <input type="text" id="toAccountNumber" name="toAccountNumber" class="form-control" required placeholder="e.g. SAV-2001">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="amount">Amount to Transfer *</label>
+                            <div class="tx-amount-input-group">
+                                <span class="tx-amount-symbol">₹</span>
+                                <input type="number" id="amount" name="amount" class="form-control tx-amount-input" required min="1" step="0.01" placeholder="0.00">
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary" id="preview-btn" style="width: 100%; margin-top: 1rem; background-color: #3b82f6; border-color: #3b82f6; font-size: 1.1rem; padding: 0.75rem;">
+                            Review Transfer
+                        </button>
+                    </form>
+
+                    <div id="tx-result" class="tx-result-summary">
+                        <!-- Result populated by JS -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/transactions.js"></script>
+</body>
+</html>

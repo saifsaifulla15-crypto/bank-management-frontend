@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions - Bank Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/transactions.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-university" style="margin-right: 0.75rem;"></i>
+                BankAdmin
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <a href="../index.html" class="nav-link">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Banks</div>
+                    <a href="banks.html" class="nav-link">
+                        <i class="fas fa-building"></i> All Banks
+                    </a>
+                    <a href="create-bank.html" class="nav-link">
+                        <i class="fas fa-plus-circle"></i> Create Bank
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Accounts</div>
+                    <a href="accounts.html" class="nav-link">
+                        <i class="fas fa-users"></i> All Accounts
+                    </a>
+                    <a href="create-account.html" class="nav-link">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Transactions</div>
+                    <a href="transactions.html" class="nav-link active">
+                        <i class="fas fa-exchange-alt"></i> Menu
+                    </a>
+                    <a href="deposit.html" class="nav-link">
+                        <i class="fas fa-arrow-down"></i> Deposit
+                    </a>
+                    <a href="withdraw.html" class="nav-link">
+                        <i class="fas fa-arrow-up"></i> Withdraw
+                    </a>
+                    <a href="transfer.html" class="nav-link">
+                        <i class="fas fa-random"></i> Transfer
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Navbar -->
+            <header class="navbar">
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div style="flex: 1;"></div>
+                <div class="user-profile">
+                    <span class="avatar">A</span>
+                    <span style="font-weight: 500; font-size: 0.95rem;">Admin User</span>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main class="content-area">
+                <div class="page-header">
+                    <h1 class="page-title">Transaction Menu</h1>
+                    <p class="page-description">Perform banking operations</p>
+                </div>
+
+                <div class="transactions-menu-grid">
+                    <a href="deposit.html" class="transaction-card">
+                        <div class="tx-icon-wrapper tx-deposit-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <h3>Deposit</h3>
+                        <p>Add money to an existing customer account.</p>
+                        <span class="btn btn-outline" style="border-color: #10b981; color: #10b981;">Open Deposit</span>
+                    </a>
+
+                    <a href="withdraw.html" class="transaction-card">
+                        <div class="tx-icon-wrapper tx-withdraw-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <h3>Withdraw</h3>
+                        <p>Withdraw money from an existing customer account.</p>
+                        <span class="btn btn-outline" style="border-color: #f59e0b; color: #f59e0b;">Open Withdraw</span>
+                    </a>
+
+                    <a href="transfer.html" class="transaction-card">
+                        <div class="tx-icon-wrapper tx-transfer-icon">
+                            <i class="fas fa-random"></i>
+                        </div>
+                        <h3>Transfer</h3>
+                        <p>Transfer money securely between two accounts.</p>
+                        <span class="btn btn-outline" style="border-color: #3b82f6; color: #3b82f6;">Open Transfer</span>
+                    </a>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="../js/utils.js"></script>
+</body>
+</html>

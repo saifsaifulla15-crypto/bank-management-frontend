@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details - Bank Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/accounts.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-university" style="margin-right: 0.75rem;"></i>
+                BankAdmin
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <a href="../index.html" class="nav-link">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Banks</div>
+                    <a href="banks.html" class="nav-link">
+                        <i class="fas fa-building"></i> All Banks
+                    </a>
+                    <a href="create-bank.html" class="nav-link">
+                        <i class="fas fa-plus-circle"></i> Create Bank
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Accounts</div>
+                    <a href="accounts.html" class="nav-link active">
+                        <i class="fas fa-users"></i> All Accounts
+                    </a>
+                    <a href="create-account.html" class="nav-link">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Transactions</div>
+                    <a href="transactions.html" class="nav-link">
+                        <i class="fas fa-exchange-alt"></i> Menu
+                    </a>
+                    <a href="deposit.html" class="nav-link">
+                        <i class="fas fa-arrow-down"></i> Deposit
+                    </a>
+                    <a href="withdraw.html" class="nav-link">
+                        <i class="fas fa-arrow-up"></i> Withdraw
+                    </a>
+                    <a href="transfer.html" class="nav-link">
+                        <i class="fas fa-random"></i> Transfer
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Navbar -->
+            <header class="navbar">
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div style="flex: 1;"></div>
+                <div class="user-profile">
+                    <span class="avatar">A</span>
+                    <span style="font-weight: 500; font-size: 0.95rem;">Admin User</span>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main class="content-area" id="account-details-container">
+                <div class="text-center" style="padding: 4rem;">
+                    <div class="loading-spinner"></div>
+                    <p class="mt-2 text-muted">Loading account details...</p>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Details Template -->
+    <template id="account-details-template">
+        <div class="page-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+                <h1 class="page-title" id="val-holder-name"></h1>
+                <p class="page-description">Account ID: <span id="val-account-id"></span></p>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <a href="accounts.html" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
+                <button id="delete-account-btn" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+
+        <div class="dashboard-sections">
+            <div class="section-main">
+                <div class="account-card">
+                    <div class="account-card-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="account-type-badge" id="val-type-badge"></div>
+                    <div class="account-number-display" id="val-account-num"></div>
+                    <div class="text-muted">Available Balance</div>
+                    <div class="account-balance-large" id="val-balance"></div>
+
+                    <div class="action-buttons-grid">
+                        <a href="#" class="action-card-btn" id="btn-deposit">
+                            <i class="fas fa-arrow-down"></i>
+                            Deposit
+                        </a>
+                        <a href="#" class="action-card-btn" id="btn-withdraw">
+                            <i class="fas fa-arrow-up"></i>
+                            Withdraw
+                        </a>
+                        <a href="#" class="action-card-btn" id="btn-transfer">
+                            <i class="fas fa-random"></i>
+                            Transfer
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-side">
+                <div class="card">
+                    <h2 class="section-title">Bank Details</h2>
+                    <div class="detail-group" style="margin-bottom: 1rem;">
+                        <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem;">Bank Name</div>
+                        <div style="font-weight: 500;" id="val-bank-name"></div>
+                    </div>
+                    <div class="detail-group" style="margin-bottom: 1rem;">
+                        <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem;">IFSC Code</div>
+                        <div style="font-weight: 500; font-family: monospace;" id="val-bank-ifsc"></div>
+                    </div>
+                    <div class="detail-group" style="margin-bottom: 1rem;">
+                        <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem;">Branch Name</div>
+                        <div style="font-weight: 500;" id="val-bank-branch"></div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="#" id="view-bank-link" class="btn btn-outline" style="width: 100%;">View Bank Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const accountId = urlParams.get('id');
+
+            if (!accountId) {
+                document.getElementById('account-details-container').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle" style="color: var(--warning);"></i>
+                        <h3>Invalid Account ID</h3>
+                        <p>No account ID was provided in the URL.</p>
+                        <a href="accounts.html" class="btn btn-primary mt-4">Go Back to Accounts</a>
+                    </div>
+                `;
+                return;
+            }
+
+            try {
+                // Fetch Account Details
+                const response = await AccountAPI.getAccountById(accountId);
+                const account = response.data;
+                
+                if (!account) throw new Error("Account not found");
+
+                // Render Template
+                const container = document.getElementById('account-details-container');
+                const template = document.getElementById('account-details-template').content.cloneNode(true);
+                container.innerHTML = '';
+                container.appendChild(template);
+
+                // Populate Details
+                document.getElementById('val-holder-name').textContent = account.accountHolderName;
+                document.getElementById('val-account-id').textContent = account.accountId;
+                document.getElementById('val-account-num').textContent = account.accountNumber;
+                document.getElementById('val-balance').textContent = formatCurrency(account.balance);
+                
+                // Badge
+                const badge = document.getElementById('val-type-badge');
+                badge.textContent = account.accountType.replace('_', ' ');
+                if (account.accountType === 'SAVINGS') badge.className = 'account-type-badge account-type-savings';
+                else if (account.accountType === 'CURRENT') badge.className = 'account-type-badge account-type-current';
+                else if (account.accountType === 'FIXED_DEPOSITE') badge.className = 'account-type-badge account-type-fixed';
+
+                // Bank Details
+                if (account.bankId) {
+                    try {
+                        const bankRes = await BankAPI.getBankById(account.bankId);
+                        const bank = bankRes.data;
+                        if (bank) {
+                            document.getElementById('val-bank-name').textContent = bank.bankName;
+                            document.getElementById('val-bank-ifsc').textContent = bank.ifsc;
+                            document.getElementById('val-bank-branch').textContent = bank.branchName;
+                            document.getElementById('view-bank-link').href = `bank-details.html?id=${bank.bankId}`;
+                            document.getElementById('view-bank-link').style.display = 'block';
+                        }
+                    } catch (bankErr) {
+                        console.error('Failed to load bank details:', bankErr);
+                        document.getElementById('val-bank-name').textContent = 'Bank details could not be loaded.';
+                        document.getElementById('val-bank-ifsc').textContent = 'N/A';
+                        document.getElementById('val-bank-branch').textContent = 'N/A';
+                        document.getElementById('view-bank-link').style.display = 'none';
+                    }
+                } else {
+                    console.error("Missing bankId for account:", account);
+                    document.getElementById('val-bank-name').textContent = 'Bank information is not available for this account.';
+                    document.getElementById('val-bank-ifsc').textContent = 'N/A';
+                    document.getElementById('val-bank-branch').textContent = 'N/A';
+                    document.getElementById('view-bank-link').style.display = 'none';
+                }
+
+                // Action Links
+                document.getElementById('btn-deposit').href = `deposit.html?accId=${account.accountId}`;
+                document.getElementById('btn-withdraw').href = `withdraw.html?accId=${account.accountId}`;
+                document.getElementById('btn-transfer').href = `transfer.html?accId=${account.accountId}`;
+
+                // Delete Logic
+                document.getElementById('delete-account-btn').addEventListener('click', () => {
+                    Modal.show({
+                        title: 'Confirm Delete',
+                        body: `Are you sure you want to delete account ${account.accountNumber}? This action cannot be undone.`,
+                        confirmText: 'Delete',
+                        isDanger: true,
+                        onConfirm: async () => {
+                            try {
+                                const delRes = await AccountAPI.deleteAccount(accountId);
+                                showToast(delRes?.message || 'Account deleted successfully');
+                                setTimeout(() => window.location.href = 'accounts.html', 1500);
+                            } catch (err) {
+                                showToast(err.message, 'error');
+                            }
+                        }
+                    });
+                });
+
+            } catch (error) {
+                document.getElementById('account-details-container').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-times-circle" style="color: var(--error);"></i>
+                        <h3>Error Loading Account</h3>
+                        <p>${error.message}</p>
+                        <a href="accounts.html" class="btn btn-primary mt-4">Go Back to Accounts</a>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

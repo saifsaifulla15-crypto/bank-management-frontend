@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Details - Bank Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/banks.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-university" style="margin-right: 0.75rem;"></i>
+                BankAdmin
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <a href="../index.html" class="nav-link">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Banks</div>
+                    <a href="banks.html" class="nav-link active">
+                        <i class="fas fa-building"></i> All Banks
+                    </a>
+                    <a href="create-bank.html" class="nav-link">
+                        <i class="fas fa-plus-circle"></i> Create Bank
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Accounts</div>
+                    <a href="accounts.html" class="nav-link">
+                        <i class="fas fa-users"></i> All Accounts
+                    </a>
+                    <a href="create-account.html" class="nav-link">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Transactions</div>
+                    <a href="transactions.html" class="nav-link">
+                        <i class="fas fa-exchange-alt"></i> Menu
+                    </a>
+                    <a href="deposit.html" class="nav-link">
+                        <i class="fas fa-arrow-down"></i> Deposit
+                    </a>
+                    <a href="withdraw.html" class="nav-link">
+                        <i class="fas fa-arrow-up"></i> Withdraw
+                    </a>
+                    <a href="transfer.html" class="nav-link">
+                        <i class="fas fa-random"></i> Transfer
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Navbar -->
+            <header class="navbar">
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div style="flex: 1;"></div>
+                <div class="user-profile">
+                    <span class="avatar">A</span>
+                    <span style="font-weight: 500; font-size: 0.95rem;">Admin User</span>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main class="content-area" id="bank-details-container">
+                <div class="text-center" style="padding: 4rem;">
+                    <div class="loading-spinner"></div>
+                    <p class="mt-2 text-muted">Loading bank details...</p>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Details Template -->
+    <template id="bank-details-template">
+        <div class="banks-header">
+            <div>
+                <h1 class="page-title"><span id="display-bank-name"></span></h1>
+                <p class="page-description">Bank ID: <span id="display-bank-id"></span></p>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <a href="banks.html" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
+                <button id="delete-bank-btn" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Delete Bank
+                </button>
+            </div>
+        </div>
+
+        <div class="dashboard-sections">
+            <div class="section-main">
+                <div class="card">
+                    <h2 class="section-title">General Information</h2>
+                    <div class="bank-details-grid">
+                        <div class="detail-group">
+                            <div class="detail-label">Bank Name</div>
+                            <div class="detail-value" id="val-name"></div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">IFSC Code</div>
+                            <div class="detail-value" id="val-ifsc"></div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Branch</div>
+                            <div class="detail-value" id="val-branch"></div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Contact Number</div>
+                            <div class="detail-value" id="val-contact"></div>
+                        </div>
+                        <div class="detail-group" style="grid-column: span 2;">
+                            <div class="detail-label">Current Balance</div>
+                            <div class="detail-value" id="val-balance" style="font-size: 1.5rem; font-weight: 700; color: var(--success);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2 class="section-title">Accounts in this Bank</h2>
+                    <div class="table-responsive">
+                        <table class="table" id="bank-accounts-table">
+                            <thead>
+                                <tr>
+                                    <th>Account No.</th>
+                                    <th>Holder Name</th>
+                                    <th>Type</th>
+                                    <th>Balance</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted">
+                                        <div class="loading-spinner"></div>
+                                        <div>Loading accounts...</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-side">
+                <div class="card">
+                    <h2 class="section-title">Address Details</h2>
+                    <div class="detail-group">
+                        <div class="detail-label">Street</div>
+                        <div class="detail-value" id="val-street"></div>
+                    </div>
+                    <div class="detail-group">
+                        <div class="detail-label">City</div>
+                        <div class="detail-value" id="val-city"></div>
+                    </div>
+                    <div class="detail-group">
+                        <div class="detail-label">State</div>
+                        <div class="detail-value" id="val-state"></div>
+                    </div>
+                    <div class="detail-group">
+                        <div class="detail-label">Pincode</div>
+                        <div class="detail-value" id="val-pincode"></div>
+                    </div>
+                    <!-- Later we can add edit address feature if needed -->
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const bankId = urlParams.get('id');
+
+            if (!bankId) {
+                document.getElementById('bank-details-container').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle" style="color: var(--warning);"></i>
+                        <h3>Invalid Bank ID</h3>
+                        <p>No bank ID was provided in the URL.</p>
+                        <a href="banks.html" class="btn btn-primary mt-4">Go Back to Banks</a>
+                    </div>
+                `;
+                return;
+            }
+
+            try {
+                // Fetch Bank Details
+                const response = await BankAPI.getBankById(bankId);
+                const bank = response.data;
+                
+                if (!bank) throw new Error("Bank not found");
+
+                // Render Template
+                const container = document.getElementById('bank-details-container');
+                const template = document.getElementById('bank-details-template').content.cloneNode(true);
+                container.innerHTML = '';
+                container.appendChild(template);
+
+                // Populate Bank Details
+                document.getElementById('display-bank-name').textContent = bank.bankName;
+                document.getElementById('display-bank-id').textContent = bank.bankId;
+                
+                document.getElementById('val-name').textContent = bank.bankName;
+                document.getElementById('val-ifsc').textContent = bank.ifsc;
+                document.getElementById('val-branch').textContent = bank.branchName;
+                document.getElementById('val-contact').textContent = bank.contact;
+                document.getElementById('val-balance').textContent = formatCurrency(bank.balance);
+                
+                if (bank.address) {
+                    document.getElementById('val-street').textContent = bank.address.street;
+                    document.getElementById('val-city').textContent = bank.address.city;
+                    document.getElementById('val-state').textContent = bank.address.state;
+                    document.getElementById('val-pincode').textContent = bank.address.pincode;
+                } else {
+                    document.getElementById('val-street').textContent = 'N/A';
+                    document.getElementById('val-city').textContent = 'N/A';
+                    document.getElementById('val-state').textContent = 'N/A';
+                    document.getElementById('val-pincode').textContent = 'N/A';
+                }
+
+                // Delete Logic
+                document.getElementById('delete-bank-btn').addEventListener('click', () => {
+                    Modal.show({
+                        title: 'Confirm Delete',
+                        body: 'Are you sure you want to delete this bank? This action cannot be undone.',
+                        confirmText: 'Delete',
+                        isDanger: true,
+                        onConfirm: async () => {
+                            try {
+                                const delRes = await BankAPI.deleteBank(bankId);
+                                showToast(delRes?.message || 'Bank deleted successfully');
+                                setTimeout(() => window.location.href = 'banks.html', 1500);
+                            } catch (err) {
+                                showToast(err.message, 'error');
+                            }
+                        }
+                    });
+                });
+
+                // Fetch Accounts for this Bank
+                fetchBankAccounts(bankId);
+
+            } catch (error) {
+                document.getElementById('bank-details-container').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-times-circle" style="color: var(--error);"></i>
+                        <h3>Error Loading Bank</h3>
+                        <p>${error.message}</p>
+                        <a href="banks.html" class="btn btn-primary mt-4">Go Back to Banks</a>
+                    </div>
+                `;
+            }
+        });
+
+        async function fetchBankAccounts(bankId) {
+            const tbody = document.querySelector('#bank-accounts-table tbody');
+            try {
+                const response = await AccountAPI.getAccountsByBankId(bankId);
+                const accounts = response.data || [];
+
+                if (accounts.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted" style="padding: 2rem;">No accounts found for this bank.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = accounts.map(acc => `
+                    <tr>
+                        <td style="font-family: monospace; font-weight: 600;">${acc.accountNumber}</td>
+                        <td>${acc.accountHolderName}</td>
+                        <td>
+                            <span class="badge badge-${acc.accountType === 'SAVINGS' ? 'primary' : acc.accountType === 'CURRENT' ? 'warning' : 'success'}">
+                                ${acc.accountType.replace('_', ' ')}
+                            </span>
+                        </td>
+                        <td style="font-weight: 600;">${formatCurrency(acc.balance)}</td>
+                        <td>
+                            <a href="account-details.html?id=${acc.accountId}" class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">View</a>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                console.error("Error fetching bank accounts:", error);
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-danger">Failed to load accounts.</td></tr>`;
+            }
+        }
+    </script>
+</body>
+</html>

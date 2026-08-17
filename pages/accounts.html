@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Accounts - Bank Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/banks.css"> <!-- Reuse some list styles -->
+    <link rel="stylesheet" href="../css/accounts.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-university" style="margin-right: 0.75rem;"></i>
+                BankAdmin
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <a href="../index.html" class="nav-link">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Banks</div>
+                    <a href="banks.html" class="nav-link">
+                        <i class="fas fa-building"></i> All Banks
+                    </a>
+                    <a href="create-bank.html" class="nav-link">
+                        <i class="fas fa-plus-circle"></i> Create Bank
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Accounts</div>
+                    <a href="accounts.html" class="nav-link active">
+                        <i class="fas fa-users"></i> All Accounts
+                    </a>
+                    <a href="create-account.html" class="nav-link">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Transactions</div>
+                    <a href="transactions.html" class="nav-link">
+                        <i class="fas fa-exchange-alt"></i> Menu
+                    </a>
+                    <a href="deposit.html" class="nav-link">
+                        <i class="fas fa-arrow-down"></i> Deposit
+                    </a>
+                    <a href="withdraw.html" class="nav-link">
+                        <i class="fas fa-arrow-up"></i> Withdraw
+                    </a>
+                    <a href="transfer.html" class="nav-link">
+                        <i class="fas fa-random"></i> Transfer
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Navbar -->
+            <header class="navbar">
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div style="flex: 1;"></div>
+                <div class="user-profile">
+                    <span class="avatar">A</span>
+                    <span style="font-weight: 500; font-size: 0.95rem;">Admin User</span>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main class="content-area">
+                <div class="accounts-header">
+                    <div>
+                        <h1 class="page-title">Accounts Directory</h1>
+                        <p class="page-description">Manage all customer accounts</p>
+                    </div>
+                    <a href="create-account.html" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Create New Account
+                    </a>
+                </div>
+
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label class="form-label" for="filter-type">Filter by Type</label>
+                        <select id="filter-type" class="form-control">
+                            <option value="">All Types</option>
+                            <option value="SAVINGS">Savings</option>
+                            <option value="CURRENT_TYPE">Current</option>
+                            <option value="FIXED_DEPOSITE">Fixed Deposit</option>
+                        </select>
+                    </div>
+                    <div class="filter-group" style="flex: 2;">
+                        <label class="form-label" for="search-input">Search Account / ID</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="text" id="search-input" class="form-control" placeholder="Enter Account ID...">
+                            <button id="search-btn" class="btn btn-outline"><i class="fas fa-search"></i></button>
+                            <button id="reset-btn" class="btn btn-outline"><i class="fas fa-times"></i> Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="table" id="accounts-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Account No.</th>
+                                    <th>Holder Name</th>
+                                    <th>Type</th>
+                                    <th>Balance</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Content populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="pagination" id="pagination-controls">
+                        <!-- Pagination populated via JS -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/accounts.js"></script>
+</body>
+</html>
