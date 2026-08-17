@@ -216,7 +216,7 @@
                     accounts.forEach(acc => {
                         totalBalance += acc.balance || 0;
                         if (acc.accountType === 'SAVINGS') savings++;
-                        else if (acc.accountType === 'CURRENT') current++;
+                        else if (acc.accountType === 'CURRENT_TYPE') CURRENT_TYPE++;
                         else if (acc.accountType === 'FIXED_DEPOSITE') fixed++;
                     });
                     
@@ -282,7 +282,7 @@
                     
                     typeStatsContainer.innerHTML = `
                         ${renderBar('Savings', savings, 'bg-primary')}
-                        ${renderBar('Current', current, 'bg-warning')}
+                        ${renderBar('CURRENT_TYPE', CURRENT_TYPE, 'bg-warning')}
                         ${renderBar('Fixed Deposit', fixed, 'bg-success')}
                     `;
                 } else {
@@ -298,7 +298,7 @@
         // Helper for badges and progress bars
         function getAccountTypeBadgeClass(type) {
             if (type === 'SAVINGS') return 'primary';
-            if (type === 'CURRENT') return 'warning';
+            if (type === 'CURRENT_TYPE') return 'warning';
             if (type === 'FIXED_DEPOSITE') return 'success';
             return 'primary';
         }
